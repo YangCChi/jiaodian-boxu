@@ -2072,37 +2072,97 @@ dialog.student-portal-dialog {
 
 .phone-bezel {
   position: relative;
-  width: 412px;
-  height: min(804px, calc(100vh - 86px));
-  padding: 11px;
-  border-radius: 46px;
-  background: #0f172a;
+  width: 410px;
+  height: min(848px, calc(100vh - 82px));
+  padding: 10px;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #27272a 0%, #09090b 45%, #18181b 100%);
   box-shadow:
-    0 28px 70px rgba(15, 23, 42, 0.28),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.14);
+    0 32px 80px rgba(15, 23, 42, 0.32),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
 }
 
-.phone-notch {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  overflow: hidden;
+  background: #f4f6f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.ios-statusbar {
+  height: 40px;
+  padding: 0 22px;
+  background: rgba(255, 255, 255, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 650;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+}
+
+.ios-island {
   width: 96px;
-  height: 20px;
+  height: 24px;
   border-radius: 999px;
-  background: #0f172a;
-  z-index: 5;
-  pointer-events: none;
+  background: #09090b;
+}
+
+.ios-indicators {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ios-battery {
+  width: 22px;
+  height: 11px;
+  border: 1.5px solid #0f172a;
+  border-radius: 3px;
+  padding: 1.5px;
+  display: inline-flex;
+  align-items: center;
+
+  i {
+    display: block;
+    width: 82%;
+    height: 100%;
+    border-radius: 1px;
+    background: #0f172a;
+  }
 }
 
 .phone-iframe {
   width: 100%;
-  height: 100%;
+  flex: 1;
   border: none;
-  border-radius: 36px;
   background: var(--bg-canvas);
+}
+
+.ios-homebar {
+  height: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+
+  span {
+    width: 116px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.28);
+  }
 }
 
 /* 移动端底部导航与卡片视图默认在桌面端隐藏 */
@@ -2172,19 +2232,24 @@ dialog.student-portal-dialog {
 /* ===== 手机端专属原生感体验（≤ 768px） ===== */
 @media (max-width: 768px) {
   .top-bar {
-    top: 10px;
+    top: 8px;
     left: 10px;
     right: 10px;
     gap: 6px;
   }
 
-  /* 手机端隐藏顶栏里的桌面导航，交由底部原生 Tab 栏承担 */
+  /* 手机端采用极简原生 App 顶栏，绝不换行拥挤 */
   .brand-group {
-    padding: 7px 12px;
+    padding: 6px 12px;
+    border-radius: 14px;
     justify-content: space-between;
 
     .mode-switch {
       display: none;
+    }
+
+    .brand-title {
+      font-size: 14px;
     }
 
     .brand-sub {
@@ -2194,51 +2259,59 @@ dialog.student-portal-dialog {
 
   .kpi-strip {
     padding: 4px 6px;
+    border-radius: 14px;
     justify-content: space-between;
 
     .kpi-item {
-      padding: 4px 6px;
-      gap: 4px;
+      padding: 3px 5px;
+      gap: 3px;
       flex: 1;
       justify-content: center;
+      white-space: nowrap;
 
       .kpi-label {
-        font-size: 11px;
+        font-size: 10.5px;
       }
 
       .kpi-value {
-        font-size: 13px;
+        font-size: 12.5px;
       }
+    }
+
+    .help-btn {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
     }
   }
 
-  /* 地图工具紧凑横排于紧凑顶栏下方 */
+  /* 地图工具紧凑横排于顶栏下方，留足中间 3D 地图大视野 */
   .map-subswitch {
-    top: 104px;
+    top: 86px;
     left: 10px;
     padding: 3px;
 
     button {
-      padding: 5px 9px;
-      font-size: 11.5px;
+      padding: 4px 9px;
+      font-size: 11px;
     }
   }
 
   .map-search-wrap {
-    top: 104px;
+    top: 86px;
     left: auto;
     right: 10px;
-    width: calc(100% - 178px);
+    width: calc(100% - 170px);
     max-width: 210px;
   }
 
   .map-search {
-    padding: 6px 10px;
+    padding: 5px 10px;
   }
 
   .toast-pill,
   .pick-banner {
-    top: 148px;
+    top: 126px;
     width: calc(100% - 24px);
     justify-content: center;
     text-align: center;
@@ -2247,51 +2320,71 @@ dialog.student-portal-dialog {
 
   .legend-popover,
   .congestion-popover {
-    top: 104px;
+    top: 86px;
     left: 10px;
     right: 10px;
     width: auto;
   }
 
-  /* 地图右下角工具条抬高避开底部 Tab 栏与时间轴 */
+  /* 地图右下角工具条紧凑排列，绝不压住时间条 */
   .map-controls {
     right: 10px;
-    bottom: 196px;
-    padding: 5px;
+    bottom: 162px;
+    padding: 4px;
+    gap: 2px;
+
+    button {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   .layers-popover {
-    right: 56px;
-    bottom: 196px;
+    right: 52px;
+    bottom: 162px;
   }
 
-  /* 底部时间轴贴合在手机 Tab 栏上方 */
+  /* 手机端时间轴压缩为极简双行，多释放出 60px 地图空间 */
   .time-dock {
     left: 10px;
     right: 10px;
-    bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px));
     transform: none;
     width: auto;
-    padding: 10px 12px;
-    gap: 8px;
+    padding: 8px 11px;
+    gap: 6px;
+    border-radius: 16px;
 
     &.hide-on-mobile {
       display: none;
     }
   }
 
+  .time-dock-bottom {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   .time-presets {
+    flex-wrap: nowrap;
     gap: 4px;
 
     button {
-      padding: 3px 8px;
+      padding: 3px 7px;
       font-size: 11px;
+      white-space: nowrap;
     }
   }
 
   .scenario-select {
     font-size: 11px;
-    padding: 3px 8px;
+    padding: 3px 6px;
+    flex-shrink: 0;
   }
 
   /* 停车区详情变为原生感底部抽屉 Bottom Sheet */
@@ -2320,7 +2413,7 @@ dialog.student-portal-dialog {
 
   /* 手机端工作台留足顶部紧凑栏 + 底部 Tab 栏安全区 */
   .workspace-page {
-    padding: 114px 12px calc(84px + env(safe-area-inset-bottom, 0px));
+    padding: 96px 12px calc(80px + env(safe-area-inset-bottom, 0px));
   }
 
   .page-head {

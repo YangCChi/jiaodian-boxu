@@ -586,12 +586,14 @@ export function App() {
   };
 
   if (mobilePreview && !isInIframe) {
+    const now = new Date();
+    const clock = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     return (
       <main className="mobile-preview-stage">
         <div className="mobile-preview-bar glass-pill">
           <span className="preview-label">
             <Smartphone size={15} />
-            交点泊序 · 手机端实时交互预览（390 × 780）
+            交点泊序 · 移动端真机预览（iPhone 15 · 390×844）
           </span>
           <button
             type="button"
@@ -604,12 +606,30 @@ export function App() {
         </div>
 
         <div className="phone-bezel">
-          <div className="phone-notch" aria-hidden="true" />
-          <iframe
-            src={window.location.href}
-            title="交点泊序手机端实时预览"
-            className="phone-iframe"
-          />
+          <div className="phone-screen">
+            {/* 真实感 iOS 顶部状态栏（独立占位，绝不遮挡应用内容） */}
+            <div className="ios-statusbar" aria-hidden="true">
+              <span className="ios-time">{clock}</span>
+              <span className="ios-island" />
+              <span className="ios-indicators">
+                <span>5G</span>
+                <span className="ios-battery">
+                  <i />
+                </span>
+              </span>
+            </div>
+
+            <iframe
+              src={window.location.href}
+              title="交点泊序手机端实时预览"
+              className="phone-iframe"
+            />
+
+            {/* iOS 底部 Home Indicator */}
+            <div className="ios-homebar" aria-hidden="true">
+              <span />
+            </div>
+          </div>
         </div>
       </main>
     );
