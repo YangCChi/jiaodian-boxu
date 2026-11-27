@@ -5,8 +5,10 @@ import {
   Download,
   HelpCircle,
   Map as MapIcon,
+  Monitor,
   Pause,
   Play,
+  QrCode,
   RotateCcw,
   Send,
   Settings,
@@ -105,6 +107,14 @@ export function App() {
   const [stickerTarget, setStickerTarget] = useState<ZombieBike | null>(null);
   const [batchStickersOpen, setBatchStickersOpen] = useState(false);
   const [studentPortalOpen, setStudentPortalOpen] = useState(false);
+  const [mobilePreview, setMobilePreview] = useState(false);
+  const isInIframe = useMemo(() => {
+    try {
+      return window.self !== window.top;
+    } catch {
+      return true;
+    }
+  }, []);
   const [registerModal, setRegisterModal] = useState<{
     open: boolean;
     zoneId?: string;
@@ -575,6 +585,36 @@ export function App() {
     notify('已恢复犀浦校区初始演示数据');
   };
 
+  if (mobilePreview && !isInIframe) {
+    return (
+      <main className="mobile-preview-stage">
+        <div className="mobile-preview-bar glass-pill">
+          <span className="preview-label">
+            <Smartphone size={15} />
+            交点泊序 · 手机端实时交互预览（390 × 780）
+          </span>
+          <button
+            type="button"
+            className="btn-primary sm"
+            onClick={() => setMobilePreview(false)}
+          >
+            <Monitor size={14} />
+            返回桌面端
+          </button>
+        </div>
+
+        <div className="phone-bezel">
+          <div className="phone-notch" aria-hidden="true" />
+          <iframe
+            src={window.location.href}
+            title="交点泊序手机端实时预览"
+            className="phone-iframe"
+          />
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="app-shell">
       {/* 顶部极简浮岛栏：品牌 + 4 个主视图切换 + 3 个核心指标 */}
@@ -680,14 +720,26 @@ export function App() {
             </span>
           </button>
 
+          {!isInIframe && (
+            <button
+              type="button"
+              className="help-btn desktop-only-btn"
+              onClick={() => setMobilePreview(true)}
+              aria-label="在电脑上切换手机端预览"
+              title="切换手机端预览"
+            >
+              <Smartphone size={16} />
+            </button>
+          )}
+
           <button
             type="button"
             className="help-btn"
             onClick={() => setStudentPortalOpen(true)}
             aria-label="预览师生微端（找车位与扫码认领）"
-            title="预览师生微端（找车位与扫码认领）"
+            title="师生微信微端（找车位/扫码）"
           >
-            <Smartphone size={16} />
+            <QrCode size={16} />
           </button>
 
           <button

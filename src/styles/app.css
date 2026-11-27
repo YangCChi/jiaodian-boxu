@@ -2039,6 +2039,72 @@ dialog.student-portal-dialog {
   }
 }
 
+/* ===== 电脑端一键预览手机真机外壳 ===== */
+.mobile-preview-stage {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, #e2e8f0 0%, #f1f5f9 55%, #e8edf4 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px;
+  overflow: auto;
+}
+
+.mobile-preview-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 7px 10px 7px 14px;
+  border-radius: 999px;
+
+  .preview-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+}
+
+.phone-bezel {
+  position: relative;
+  width: 412px;
+  height: min(804px, calc(100vh - 86px));
+  padding: 11px;
+  border-radius: 46px;
+  background: #0f172a;
+  box-shadow:
+    0 28px 70px rgba(15, 23, 42, 0.28),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 96px;
+  height: 20px;
+  border-radius: 999px;
+  background: #0f172a;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.phone-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 36px;
+  background: var(--bg-canvas);
+}
+
 /* 移动端底部导航与卡片视图默认在桌面端隐藏 */
 .mobile-tabbar,
 .mobile-ledger-list,
@@ -2284,7 +2350,8 @@ dialog.student-portal-dialog {
     }
   }
 
-  .desktop-only-table {
+  .desktop-only-table,
+  .desktop-only-btn {
     display: none;
   }
 
